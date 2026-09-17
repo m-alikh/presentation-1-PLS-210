@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>One cup, two lives — PLS 210 Presentation 1</title>
 <meta name="description" content="How NU students use coffee to mark, cross, or blur the boundary between studying and living. PLS 210 research design, Part 1.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
@@ -10,151 +10,150 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --canvas:#0a0a0a; --card:#191919; --soft:#1a1c20; --mid:#363a3f; --hair:#212327;
-  --ink:#ffffff; --body:#dadbdf; --mute:#7d8187;
-  --crema:#ffc285; --roast:#ff7a17; --espresso:#3b2417;
-  --pill:rgba(255,255,255,.25);
-  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;
-}
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:#0a0a0a;color:#dadbdf;color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:72px}
-body{background:#0a0a0a;color:#dadbdf;font:400 16px/24px "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+html,body{height:100%;overscroll-behavior:none;touch-action:pan-y;background:#0a0a0a;color:#dadbdf;color-scheme:dark;overflow:hidden}
+body{font:400 18px/27px "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
+em{font-style:italic;color:#ffffff}
 :focus-visible{outline:2px solid #ffc285;outline-offset:3px;border-radius:4px}
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 
-/* nav */
-.nav{position:sticky;top:0;z-index:10;background:rgba(10,10,10,.92);backdrop-filter:blur(8px);border-bottom:1px solid #212327}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px}
-.brand{font-size:14px;color:#ffffff;text-decoration:none;white-space:nowrap}
-.brand span{color:#ffc285}
-.links{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
-.links::-webkit-scrollbar{display:none}
-.pill{display:inline-block;font-size:14px;line-height:20px;padding:4px 12px;border:1px solid rgba(255,255,255,.25);border-radius:9999px;text-decoration:none;color:#ffffff;white-space:nowrap}
-.pill.on{background:#ffffff;color:#0a0a0a;border-color:#ffffff}
+/* stage: every slide is exactly 1280x720, scaled to fit the screen */
+#stage{position:fixed;left:50%;top:50%;width:1280px;height:720px;transform-origin:center center}
+.slide{position:absolute;inset:0;padding:56px 80px 64px;display:flex;flex-direction:column;justify-content:center;
+  opacity:0;visibility:hidden;transform:translateX(60px);transition:opacity .4s ease,transform .4s ease,visibility .4s}
+.slide.past{transform:translateX(-60px)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+body::after{content:"";position:fixed;right:-80px;bottom:-80px;width:280px;height:280px;border-radius:50%;
+  border:5px dashed rgba(255,194,133,.07);pointer-events:none}
 
-/* type */
-.eyebrow{font:400 14px/20px "Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;letter-spacing:1.4px;text-transform:uppercase;color:#7d8187;margin-bottom:16px}
+.eyebrow{font:400 14px/20px "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:1.4px;text-transform:uppercase;color:#7d8187;margin-bottom:14px}
 .eyebrow b{font-weight:400;color:#ffc285}
-h1{font-size:96px;line-height:96px;letter-spacing:-2.4px;font-weight:400;color:#ffffff}
-h2{font-size:48px;line-height:52px;letter-spacing:-1.2px;font-weight:400;color:#ffffff;margin-bottom:24px}
-h3{font-size:20px;line-height:28px;font-weight:400;color:#ffffff;margin-bottom:8px}
-.lead{font-size:18px;line-height:28px;color:#dadbdf;max-width:62ch}
-.small{font-size:14px;line-height:20px;color:#7d8187}
-.cite{font:400 12px/16px "Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;letter-spacing:.6px;color:#ffc285;white-space:nowrap}
+h1{font-size:88px;line-height:90px;letter-spacing:-2.2px;font-weight:400;color:#fff}
+h2{font-size:44px;line-height:50px;letter-spacing:-1.1px;font-weight:400;color:#fff;margin-bottom:28px}
+h3{font-size:20px;line-height:27px;font-weight:400;color:#fff;margin-bottom:8px}
+.cite{font:400 12px/16px "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:.6px;color:#ffc285;white-space:nowrap}
+.mt{margin-top:10px}
+.sub{color:#7d8187;margin:-16px 0 24px}
 
-/* hero */
-.hero{padding:64px 0 48px;border-bottom:1px solid #212327}
-.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.hero .rq{margin-top:32px;padding-left:16px;border-left:2px solid #ffc285;font-size:20px;line-height:30px;color:#ffffff;max-width:36ch}
-.hero .meta{margin-top:32px;display:flex;flex-wrap:wrap;gap:8px}
-.cup{width:100%;height:auto;max-width:480px;justify-self:center}
+/* title */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.rq{margin-top:28px;padding-left:16px;border-left:2px solid #ffc285;font-size:21px;line-height:31px;color:#fff;max-width:34ch}
+.tags{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px}
+.tag{font:400 12px/16px "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:.8px;padding:4px 10px;border-radius:9999px;border:1px solid rgba(255,255,255,.25);color:#dadbdf}
+.cup{width:100%;height:auto;max-width:470px;justify-self:center}
 .steam path{animation:rise 4.5s ease-in-out infinite;transform-box:fill-box}
 .steam path:nth-child(2){animation-delay:1.2s}
 .steam path:nth-child(3){animation-delay:2.4s}
 @keyframes rise{0%{opacity:0;transform:translateY(12px)}35%{opacity:.9}100%{opacity:0;transform:translateY(-18px)}}
-@media (prefers-reduced-motion:reduce){.steam path{animation:none;opacity:.7}html{scroll-behavior:auto}}
 
-/* sections */
-section.band{padding:64px 0;border-bottom:1px solid #212327}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:#191919;border:1px solid #212327;border-radius:8px;padding:24px}
-.card p{font-size:15px;line-height:23px}
-ul.dots{list-style:none;display:grid;gap:12px;max-width:70ch}
-ul.dots li{position:relative;padding-left:22px}
-ul.dots li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:#ffc285}
-.statement{font-size:32px;line-height:38px;letter-spacing:-.6px;color:#ffffff;max-width:28ch;margin-bottom:32px}
-
-/* scope table */
-.scope{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #212327;border-radius:8px;overflow:hidden;margin-bottom:24px}
-.scope div{padding:20px 24px;border-right:1px solid #212327}
+/* question */
+.statement{font-size:34px;line-height:42px;letter-spacing:-.7px;color:#fff;max-width:30ch}
+.statement em{font-style:normal;color:#ffc285}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0 20px}
+.mode{background:#191919;border:1px solid #212327;border-radius:8px;padding:16px}
+.mode svg{width:100%;height:auto;display:block;margin-bottom:12px;border-radius:6px;background:#0a0a0a}
+.mode h3{color:#ffc285;margin-bottom:2px}
+.mode p{font-size:15px;line-height:21px}
+.scope{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #212327;border-radius:8px;overflow:hidden}
+.scope div{padding:14px 18px;border-right:1px solid #212327}
 .scope div:last-child{border-right:0}
-.scope .k{font:400 12px/16px "Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;letter-spacing:1.2px;text-transform:uppercase;color:#7d8187;margin-bottom:6px}
-.scope .v{color:#ffffff}
+.scope .k{font:400 11px/14px "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:1.2px;text-transform:uppercase;color:#7d8187;margin-bottom:4px}
+.scope .v{color:#fff;font-size:15px;line-height:21px}
 
-/* contribution */
+/* cards */
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#191919;border:1px solid #212327;border-radius:10px;padding:28px}
+.card p{font-size:16px;line-height:24px}
+ul.dots{list-style:none;display:grid;gap:12px}
+ul.dots li{position:relative;padding-left:22px;font-size:17px;line-height:25px}
+ul.dots li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:#ffc285}
+.pos .card{padding:24px 26px}
+.pos ul.dots li{font-size:16px;line-height:23px}
+.pos h3{color:#ffc285}
 .shift .from{color:#7d8187;text-decoration:line-through;text-decoration-color:#363a3f}
-.shift .to{color:#ffffff;font-size:20px;line-height:28px;margin:6px 0 12px}
+.shift .to{color:#fff;font-size:21px;line-height:28px;margin:6px 0 12px}
+.ico{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;margin-bottom:18px}
+.ico svg{width:24px;height:24px}
+.tactics{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 
 /* literature chain */
-.chain{list-style:none;position:relative;max-width:820px}
-.chain::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:1px;background:#363a3f}
-.chain li{position:relative;display:grid;grid-template-columns:40px 1fr;gap:20px;padding:14px 0}
-.chain .n{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:#0a0a0a;display:grid;place-items:center;font:400 13px/1 "Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;color:#ffffff;position:relative}
+.chain{list-style:none;position:relative}
+.chain::before{content:"";position:absolute;left:21px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,#ffc285,#8a5a33 50%,#3b2417 90%,transparent)}
+.chain li{position:relative;display:grid;grid-template-columns:44px 1fr;gap:24px;padding:12px 0}
+.chain .n{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:#0a0a0a;display:grid;place-items:center;font:400 14px/1 "Geist Mono",ui-monospace,Menlo,monospace;color:#fff;position:relative}
 .chain h3{margin-bottom:4px}
-.chain p{max-width:64ch}
+.chain p{font-size:17px;line-height:26px;max-width:72ch}
 .chain li.pivot .n{background:#ffc285;color:#0a0a0a;border-color:#ffc285}
-.chain li.pivot .body{background:#191919;border:1px solid #ffc285;border-radius:8px;padding:16px 20px}
+.chain li.pivot .body{background:#191919;border:1px solid #ffc285;border-radius:10px;padding:16px 22px}
 .chain li.gap .n{border-color:#ff7a17;color:#ff7a17}
-.chain li.end .n{background:#ffffff;color:#0a0a0a;border-color:#ffffff}
+.chain li.end .n{background:#fff;color:#0a0a0a;border-color:#fff}
+.chain li.end h3{color:#ffc285}
 
-/* framework */
-.sub{margin-top:48px}
-.sub:first-of-type{margin-top:0}
-.tactics{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.tag{font:400 12px/16px "Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;letter-spacing:.8px;padding:4px 10px;border-radius:9999px;border:1px solid rgba(255,255,255,.25);color:#dadbdf}
-.pos .card h3{color:#ffc285}
+/* expectations */
+.exp{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.exp li{background:#191919;border:1px solid #212327;border-radius:10px;padding:24px 26px;font-size:18px;line-height:27px;color:#fff;display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:start}
+.exp span{width:40px;height:40px;border-radius:50%;background:#ffc285;color:#0a0a0a;display:grid;place-items:center;font:400 15px/1 "Geist Mono",ui-monospace,Menlo,monospace}
 
 /* ai */
-.ai{border-left:2px solid #ffc285;padding-left:20px;max-width:70ch;font-size:18px;line-height:28px;color:#ffffff}
-.reflect{background:#1a1c20}
+.ai{border-left:2px solid #ffc285;padding-left:24px;max-width:60ch;font-size:24px;line-height:37px;color:#fff}
 
 /* refs */
-.refs{list-style:none;display:grid;gap:14px;max-width:80ch;font-size:14px;line-height:21px}
+.refs{list-style:none;display:grid;gap:14px;font-size:15px;line-height:22px}
 .refs li{padding-left:28px;text-indent:-28px}
 .refs a{color:#7d8187;word-break:break-all}
+.foot{margin-top:28px;display:flex;align-items:center;gap:14px;font-size:13px;color:#7d8187}
+.beans{display:flex;gap:2px}
+.beans svg{width:20px;height:20px}
 
-/* coffee visuals */
-.hero{position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-  background:
-   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Ccircle cx='110' cy='110' r='80' fill='none' stroke='%23ffc285' stroke-opacity='.10' stroke-width='5' stroke-dasharray='120 10 60 6 200 14'/%3E%3Ccircle cx='110' cy='110' r='72' fill='none' stroke='%23ffc285' stroke-opacity='.05' stroke-width='2'/%3E%3C/svg%3E") no-repeat 98% 104%/220px,
-   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Ccircle cx='80' cy='80' r='60' fill='none' stroke='%23ffc285' stroke-opacity='.08' stroke-width='4' stroke-dasharray='90 8 40 5 150 10'/%3E%3C/svg%3E") no-repeat 52% 6%/160px}
-.hero .wrap{position:relative}
-section.band{border-bottom:0}
-.divider{display:flex;align-items:center;gap:14px;max-width:1200px;margin:0 auto;padding:0 24px}
-.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#363a3f,transparent)}
-.divider svg{width:22px;height:22px}
-.divider svg+svg{margin-left:-8px}
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0 24px}
-.mode{background:#191919;border:1px solid #212327;border-radius:8px;padding:20px}
-.mode svg{width:100%;height:auto;display:block;margin-bottom:14px;border-radius:6px;background:#0a0a0a}
-.mode h3{color:#ffc285;margin-bottom:4px}
-.mode p{font-size:14px;line-height:21px}
-.ico{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;margin-bottom:16px}
-.ico svg{width:22px;height:22px}
-.chain::before{width:2px;left:19px;background:linear-gradient(180deg,#ffc285,#8a5a33 45%,#3b2417 85%,transparent)}
-.beans{display:flex;gap:6px;align-items:center}
-.beans svg{width:16px;height:16px;opacity:.8}
-@media (max-width:768px){.modes{grid-template-columns:1fr}}
+/* controls */
+.controls{position:fixed;right:18px;bottom:16px;display:flex;align-items:center;gap:6px;z-index:5;
+  font:400 12px/16px "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:1px;color:#7d8187;
+  background:rgba(26,28,32,.9);border:1px solid #212327;border-radius:9999px;padding:4px}
+.controls button{all:unset;cursor:pointer;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.controls button:hover{background:#363a3f}
+.controls button:focus-visible{outline:2px solid #ffc285}
+.controls .count{padding:0 6px;min-width:60px;text-align:center}
+.controls .count b{font-weight:400;color:#fff}
+.progress{position:fixed;left:0;top:0;height:2px;background:#ffc285;z-index:5;transition:width .35s ease}
+.keys{margin-top:36px;font:400 12px/16px "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:1px;color:#7d8187}
 
-footer{padding:48px 0;font-size:14px;color:#7d8187}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.counter{position:fixed;right:20px;bottom:20px;font:400 12px/16px "Geist Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;letter-spacing:1.2px;color:#7d8187;background:#1a1c20;border:1px solid #212327;border-radius:9999px;padding:6px 12px;z-index:10}
-.counter kbd{font:inherit;color:#ffffff}
+.big{font-size:32px;line-height:42px;letter-spacing:-.5px;color:#fff;max-width:32ch;margin-bottom:32px}
+.big em{font-style:normal;color:#ffc285}
+ul.arrows{list-style:none;display:grid;gap:16px}
+ul.arrows li{font-size:22px;line-height:30px;padding-left:36px;position:relative}
+ul.arrows li::before{content:"→";position:absolute;left:0;color:#ffc285}
+ul.plus{list-style:none;display:grid;gap:20px;max-width:900px}
+ul.plus li{font-size:24px;line-height:33px;color:#fff;display:grid;grid-template-columns:40px 1fr;gap:12px}
+ul.plus span{color:#ffc285;font:400 22px/33px "Geist Mono",ui-monospace,Menlo,monospace}
+.note{margin-top:28px;font-size:18px;color:#7d8187}
+.end-slide{text-align:center;display:grid;justify-items:center;gap:20px}
+.end-slide .big{margin:0}
+.end-slide .beans svg{width:28px;height:28px}
+.shift .to{font-size:26px;line-height:32px}
+.card.shift{padding:32px}
+.exp li{font-size:22px;line-height:31px}
+.chain p{font-size:19px;line-height:28px;max-width:92ch}
+.chain li{padding:14px 0}
+.pos ul.dots li{font-size:19px;line-height:27px}
+.mt{font-size:18px!important;line-height:26px!important}
 
-@media (max-width:900px){
-  .hero .wrap{grid-template-columns:1fr}
-  .grid3{grid-template-columns:1fr}
-}
-@media (max-width:768px){
-  h1{font-size:52px;line-height:54px;letter-spacing:-1.4px}
-  h2{font-size:34px;line-height:38px;letter-spacing:-.8px}
-  .statement{font-size:24px;line-height:30px}
-  .grid2,.scope{grid-template-columns:1fr}
-  .scope div{border-right:0;border-bottom:1px solid #212327}
-  .scope div:last-child{border-bottom:0}
-  .brand{display:none}
-  .counter{display:none}
-  section.band{padding:48px 0}
-}
+.topnav{position:fixed;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 18px;pointer-events:none}
+.topnav>*{pointer-events:auto}
+.brand{font-size:13px;color:#fff;white-space:nowrap}
+.brand b{font-weight:400;color:#ffc285}
+.pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{all:unset;cursor:pointer;font-size:13px;line-height:18px;padding:4px 11px;border:1px solid rgba(255,255,255,.25);border-radius:9999px;color:#fff;white-space:nowrap;background:rgba(10,10,10,.85)}
+.pill:hover{border-color:#fff}
+.pill.on{background:#fff;color:#0a0a0a;border-color:#fff}
+.pill:focus-visible{outline:2px solid #ffc285;outline-offset:2px}
+@media (max-width:760px){.brand{display:none}.topnav{padding:10px}}
+@media (prefers-reduced-motion:reduce){.steam path{animation:none;opacity:.7}.slide,.progress{transition:none}.slide,.slide.past{transform:none}}
+
 </style>
 </head>
 <body>
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="bean" viewBox="0 0 24 24">
@@ -180,35 +179,33 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </defs>
 </svg>
 
-<nav class="nav" aria-label="Sections">
-  <div class="wrap">
-    <a class="brand" href="#top">PLS 210 <span>/</span> Presentation 1</a>
-    <div class="links">
-      <a class="pill" href="#question">Question</a>
-      <a class="pill" href="#position">Position</a>
-      <a class="pill" href="#contribution">Contribution</a>
-      <a class="pill" href="#literature">Literature</a>
-      <a class="pill" href="#framework">Framework</a>
-      <a class="pill" href="#ai">AI</a>
-      <a class="pill" href="#references">References</a>
-    </div>
+<div class="progress" id="progress"></div>
+<nav class="topnav" aria-label="Sections">
+  <span class="brand">PLS 210 <b>/</b> Presentation 1</span>
+  <div class="pills">
+    <button class="pill" data-go="2" data-to="3">Question</button>
+    <button class="pill" data-go="4" data-to="4">Position</button>
+    <button class="pill" data-go="5" data-to="5">Contribution</button>
+    <button class="pill" data-go="6" data-to="7">Literature</button>
+    <button class="pill" data-go="8" data-to="10">Framework</button>
+    <button class="pill" data-go="11" data-to="12">AI</button>
+    <button class="pill" data-go="13" data-to="13">References</button>
   </div>
 </nav>
 
-<header class="hero" id="top">
-  <div class="wrap">
-    <div>
-      <p class="eyebrow">Presentation 1 <b>/</b> Fall 2026 <b>/</b> Marat Alikhan</p>
-      <h1>One cup, two lives.</h1>
-      <p class="rq">How do NU students use coffee to mark, cross, or blur the boundary between studying and living, on a campus where those two things happen in the same building?</p>
-      <div class="meta">
-        <span class="tag">Interpretivist</span>
-        <span class="tag">Nazarbayev University</span>
-        <span class="tag">Boundary work</span>
-      </div>
-    </div>
+<main id="stage">
 
-    <svg class="cup" viewBox="0 0 480 420" role="img" aria-labelledby="cupTitle">
+<section class="slide " data-title="Title" aria-label="Title">
+
+  <div class="hero">
+    <div>
+      <p class="eyebrow">Presentation 1 <b>/</b> Fall 2026 <b>/</b> Shifu (pseudonym)</p>
+      <h1>One cup,<br>two lives.</h1>
+      <p class="rq">How do NU students use coffee to mark, cross, or blur the boundary between studying and living, on a campus where those two things happen in the same building?</p>
+      <div class="tags"><span class="tag">Interpretivist</span><span class="tag">Nazarbayev University</span><span class="tag">Fall 2026</span></div>
+      <p class="keys">Press → or space to move</p>
+    </div>
+        <svg class="cup" viewBox="0 0 480 420" role="img" aria-labelledby="cupTitle">
       <title id="cupTitle">A coffee cup sitting exactly on the line between studying and living</title>
       <!-- coffee ring stain -->
       <circle cx="96" cy="330" r="38" fill="none" stroke="#ffc285" stroke-opacity=".14" stroke-width="3" stroke-dasharray="60 6 30 4 90 8"/>
@@ -234,24 +231,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <ellipse cx="240" cy="220" rx="72" ry="14" fill="#3b2417" stroke="#ffffff" stroke-width="2"/>
       <ellipse cx="240" cy="221" rx="56" ry="8" fill="none" stroke="#ffc285" stroke-opacity=".7" stroke-width="1.5"/>
     </svg>
+
   </div>
-</header>
+</section>
+<section class="slide " data-title="Puzzle" aria-label="Puzzle">
 
-<main>
+  <p class="eyebrow">The puzzle</p>
+  <h2>One building, two lives</h2>
+  <ul class="arrows">
+    <li>At NU, studying and living share one building: integration by design.</li>
+    <li>When what people want doesn't match their environment, it causes strain and conflict. <span class="cite">Kulka, 1979, as cited in Kreiner et al., 2009</span></li>
+    <li>So how do students draw, or drop, a line the building doesn't draw for them?</li>
+  </ul>
+</section>
+<section class="slide " data-title="Research question" aria-label="Research question">
 
-<section class="band" id="question">
-  <div class="wrap">
-    <p class="eyebrow"><b>01</b> / Research question</p>
-    <h2>The question</h2>
-    <p class="statement">How do NU students use coffee to mark, cross, or blur the boundary between studying and living?</p>
-        <div class="modes">
+  <p class="eyebrow"><b>01</b> / Research question</p>
+  <p class="statement">How do NU students use coffee to <em>mark, cross, or blur</em> the boundary between studying and living?</p>
+          <div class="modes">
       <div class="mode">
         <svg viewBox="0 0 240 90" aria-hidden="true"><text x="45" y="18" text-anchor="middle" fill="#7d8187" font-family="Geist Mono, monospace" font-size="9" letter-spacing="1">STUDY</text><text x="195" y="18" text-anchor="middle" fill="#7d8187" font-family="Geist Mono, monospace" font-size="9" letter-spacing="1">LIVING</text>
           <line x1="120" y1="8" x2="120" y2="84" stroke="#ffc285" stroke-width="3"/>
           <g transform="translate(120 44)"><path d="M-12 0h24l-3 16q-1 4-5 4h-8q-4 0-5-4z" fill="#191919" stroke="#fff" stroke-width="1.5"/><ellipse cx="0" cy="0" rx="12" ry="3" fill="#3b2417" stroke="#fff" stroke-width="1.5"/><path d="M12 4q7 0 5 7-1 3-6 3" fill="none" stroke="#fff" stroke-width="1.5"/></g>
         </svg>
         <h3>Mark</h3>
-        <p>Coffee makes the line clearer: "this is study time."</p>
+        <p>A clear line.</p>
       </div>
       <div class="mode">
         <svg viewBox="0 0 240 90" aria-hidden="true"><text x="45" y="18" text-anchor="middle" fill="#7d8187" font-family="Geist Mono, monospace" font-size="9" letter-spacing="1">STUDY</text><text x="195" y="18" text-anchor="middle" fill="#7d8187" font-family="Geist Mono, monospace" font-size="9" letter-spacing="1">LIVING</text>
@@ -261,7 +265,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <g transform="translate(190 44)"><path d="M-12 0h24l-3 16q-1 4-5 4h-8q-4 0-5-4z" fill="#191919" stroke="#fff" stroke-width="1.5"/><ellipse cx="0" cy="0" rx="12" ry="3" fill="#3b2417" stroke="#fff" stroke-width="1.5"/><path d="M12 4q7 0 5 7-1 3-6 3" fill="none" stroke="#fff" stroke-width="1.5"/></g>
         </svg>
         <h3>Cross</h3>
-        <p>Coffee helps move over the line: "now I switch to studying."</p>
+        <p>Moving over it.</p>
       </div>
       <div class="mode">
         <svg viewBox="0 0 240 90" aria-hidden="true"><text x="45" y="18" text-anchor="middle" fill="#7d8187" font-family="Geist Mono, monospace" font-size="9" letter-spacing="1">STUDY</text><text x="195" y="18" text-anchor="middle" fill="#7d8187" font-family="Geist Mono, monospace" font-size="9" letter-spacing="1">LIVING</text>
@@ -269,296 +273,240 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <g transform="translate(120 44)"><path d="M-12 0h24l-3 16q-1 4-5 4h-8q-4 0-5-4z" fill="#191919" stroke="#fff" stroke-width="1.5"/><ellipse cx="0" cy="0" rx="12" ry="3" fill="#3b2417" stroke="#fff" stroke-width="1.5"/><path d="M12 4q7 0 5 7-1 3-6 3" fill="none" stroke="#fff" stroke-width="1.5"/></g>
         </svg>
         <h3>Blur</h3>
-        <p>Coffee mixes the two: studying and living feel like one thing.</p>
+        <p>Mixing the two.</p>
       </div>
     </div>
-    <div class="scope">
-      <div><p class="k">Who</p><p class="v">NU students</p></div>
-      <div><p class="k">Where</p><p class="v">A campus where studying and living happen in the same building</p></div>
-      <div><p class="k">When</p><p class="v">Academic year 2026–27</p></div>
-    </div>
-    <ul class="dots">
-      <li>Empirical, not normative: it asks <em>how</em> students do it, not whether they should.</li>
-      <li>Answerable: students can describe and show their own coffee routines.</li>
-    </ul>
+
+  <div class="scope">
+    <div><p class="k">Who</p><p class="v">NU students</p></div>
+    <div><p class="k">Where</p><p class="v">Study and life in one building</p></div>
+    <div><p class="k">When</p><p class="v">2026–27</p></div>
   </div>
 </section>
+<section class="slide " data-title="Positioning" aria-label="Positioning">
 
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
-
-<section class="band" id="position">
-  <div class="wrap">
-    <p class="eyebrow"><b>02</b> / Epistemological positioning</p>
-    <h2>Interpretivist</h2>
-    <div class="grid2">
-      <div class="card">
-        <h3>Why this tradition fits</h3>
-        <ul class="dots">
-          <li>The question is about meaning: what a cup of coffee <em>means</em> to a student at a given moment.</li>
-          <li>The boundary is not out there to measure. Students create it, so their own accounts are the evidence.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>What I am not doing</h3>
-        <ul class="dots">
-          <li>No IV/DV and no hypothesis test: coffee is not treated as a cause of study results.</li>
-          <li>No counting of cups: the goal is to understand the logic, not the amount.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <p class="eyebrow"><b>02</b> / Where I stand</p>
+  <h2>Interpretivism</h2>
+  <p class="big">I ask what coffee <em>means</em> to students, not how much they drink.</p>
+  <ul class="arrows">
+    <li>My question is a meaning question.</li>
+    <li>Students create the boundary, so their words are my evidence.</li>
+    <li>No IV/DV. No counting cups.</li>
+  </ul>
+  <p class="note"><span class="cite">Schwartz-Shea &amp; Yanow, 2012</span></p>
 </section>
+<section class="slide " data-title="Contribution" aria-label="Contribution">
 
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
-
-<section class="band" id="contribution">
-  <div class="wrap">
-    <p class="eyebrow"><b>03</b> / Contribution</p>
-    <h2>What this study adds</h2>
-    <div class="grid3">
-      <div class="card shift">
-        <div class="ico"><svg aria-hidden="true"><use href="#i-cup"/></svg></div>
-        <p class="from">Coffee as consumption</p>
-        <p class="to">Coffee as a crossing device</p>
-        <p>Existing studies ask how much students drink and why. This one asks what coffee does when students move between study and life.</p>
-      </div>
-      <div class="card shift">
-        <div class="ico"><svg aria-hidden="true"><use href="#i-building"/></svg></div>
-        <p class="from">Adults working from home</p>
-        <p class="to">Students in shared institutional space</p>
-        <p>Boundary research mostly studies employees. A residential campus blurs the line in a different way.</p>
-      </div>
-      <div class="card shift">
-        <div class="ico"><svg aria-hidden="true"><use href="#i-pin"/></svg></div>
-        <p class="from">US and Spanish samples</p>
-        <p class="to">A Kazakhstani campus</p>
-        <p>No study looks at coffee and daily boundaries among students in Kazakhstan.</p>
-      </div>
+  <p class="eyebrow"><b>03</b> / What this adds</p>
+  <h2>Three shifts</h2>
+  <div class="grid3">
+    <div class="card shift">
+      <div class="ico"><svg aria-hidden="true"><use href="#i-cup"/></svg></div>
+      <p class="from">Coffee as consumption</p>
+      <p class="to">Coffee as a way across</p>
+    </div>
+    <div class="card shift">
+      <div class="ico"><svg aria-hidden="true"><use href="#i-building"/></svg></div>
+      <p class="from">Adults working from home</p>
+      <p class="to">Students living on campus</p>
+    </div>
+    <div class="card shift">
+      <div class="ico"><svg aria-hidden="true"><use href="#i-pin"/></svg></div>
+      <p class="from">US and Spain</p>
+      <p class="to">Kazakhstan</p>
     </div>
   </div>
 </section>
+<section class="slide " data-title="Literature review (1/2)" aria-label="Literature review (1/2)">
 
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
-
-<section class="band" id="literature">
-  <div class="wrap">
-    <p class="eyebrow"><b>04</b> / Literature review</p>
-    <h2>From a common drink to an open question</h2>
-    <ol class="chain">
-      <li>
-        <span class="n">1</span>
-        <div class="body">
-          <h3>Coffee is everywhere</h3>
-          <p>Over 90% of undergraduates in US and Spanish surveys consume caffeine, and coffee is the largest source in both. <span class="cite">Mahoney et al., 2019; Riera-Sampol et al., 2022</span></p>
-        </div>
-      </li>
-      <li>
-        <span class="n">2</span>
-        <div class="body">
-          <h3>Coffee plays a dual role</h3>
-          <p>Instrumental: some students see coffee as a tool for good grades and later employment. <span class="cite">Franke et al., 2012</span> Social: 68% of US college students drink it for the taste, 39% for drinking with friends and family. <span class="cite">Mahoney et al., 2019</span></p>
-        </div>
-      </li>
-      <li class="pivot">
-        <span class="n">3</span>
-        <div class="body">
-          <h3>The pivot</h3>
-          <p>The literature analyses studying and sociability as separate domains. It does not examine how coffee can be a device to move between them, mark the distinction, or blur it.</p>
-        </div>
-      </li>
-      <li>
-        <span class="n">4</span>
-        <div class="body">
-          <h3>Life domains sit on a continuum</h3>
-          <p>From high segmentation (contrasting roles, hard to cross) to high integration (overlapping roles, easy to cross but hard to mark). People use boundary work to create, maintain, or blur the lines. <span class="cite">Ashforth et al., 2000</span></p>
-        </div>
-      </li>
-      <li>
-        <span class="n">5</span>
-        <div class="body">
-          <h3>Boundary work has forms</h3>
-          <p>Behavioral, temporal, physical, or communicative. With physical tactics, objects become markers: one participant wore a "collar" to signal a meeting. <span class="cite">Kreiner et al., 2009</span> Coffee could combine several tactics at once, since they complement rather than replace each other.</p>
-        </div>
-      </li>
-      <li class="gap">
-        <span class="n">6</span>
-        <div class="body">
-          <h3>The gap</h3>
-          <p>Research focuses on work and home. Students, whose living and studying are highly integrated in one place, are overlooked, and coffee has not been studied as a device for marking, crossing, or blurring boundaries.</p>
-        </div>
-      </li>
-      <li class="end">
-        <span class="n">?</span>
-        <div class="body">
-          <h3>Therefore: how do NU students use coffee to mark, cross, or blur the boundary between studying and living?</h3>
-        </div>
-      </li>
-    </ol>
-  </div>
+  <p class="eyebrow"><b>04</b> / What others found · 1 of 2</p>
+  <h2>A common drink…</h2>
+  <ol class="chain">
+      <li class=""><span class="n">1</span><div class="body"><h3>Coffee is everywhere</h3><p>Over 90% of students consume caffeine. Coffee is the main source. <span class="cite">Mahoney et al., 2019; Riera-Sampol et al., 2022</span></p></div></li>
+      <li class=""><span class="n">2</span><div class="body"><h3>It plays a dual role</h3><p>For grades and jobs <span class="cite">Franke et al., 2012</span> and for taste and friends. <span class="cite">Mahoney et al., 2019</span></p></div></li>
+      <li class="pivot"><span class="n">3</span><div class="body"><h3>The pivot</h3><p>Studying and sociability are studied separately, never coffee as a way to move between them.</p></div></li>
+  </ol>
 </section>
+<section class="slide " data-title="Literature review (2/2)" aria-label="Literature review (2/2)">
 
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
+  <p class="eyebrow"><b>04</b> / What others found · 2 of 2</p>
+  <h2>…and an open question</h2>
+  <ol class="chain">
+      <li class=""><span class="n">4</span><div class="body"><h3>Life domains sit on a continuum</h3><p>Segmented: hard to cross. Integrated: easy to cross, hard to mark. <span class="cite">Ashforth et al., 2000</span></p></div></li>
+      <li class=""><span class="n">5</span><div class="body"><h3>Boundary work has forms</h3><p>Behavioral, temporal, physical, communicative. Objects can be markers, like a “collar”. <span class="cite">Kreiner et al., 2009</span></p></div></li>
+      <li class="gap"><span class="n">6</span><div class="body"><h3>The gap</h3><p>Only work and home. Not students who live and study in one place. Not coffee. Not Kazakhstan.</p></div></li>
+      <li class="end"><span class="n">?</span><div class="body"><h3>So: how do NU students use coffee to mark, cross, or blur that boundary?</h3></div></li>
+  </ol>
+</section>
+<section class="slide " data-title="Sensitising concepts" aria-label="Sensitising concepts">
 
-<section class="band" id="framework">
-  <div class="wrap">
-    <p class="eyebrow"><b>05</b> / Analytical framework</p>
-    <h2>How I will look</h2>
-
-    <div class="sub">
-      <h3 class="small" style="margin-bottom:16px">Sensitising concepts</h3>
-      <div class="grid3">
-        <div class="card">
-          <h3>Boundary work</h3>
-          <p class="cite">Nippert-Eng, 1996</p>
-          <p style="margin-top:10px">People actively draw and redraw the line between domains. Makes me notice what students <em>do</em> to separate, not just where they are.</p>
-        </div>
-        <div class="card">
-          <h3>Micro role transitions</h3>
-          <p class="cite">Ashforth et al., 2000</p>
-          <p style="margin-top:10px">Small, repeated acts that help people exit one role and enter another. Makes me notice the moment of crossing: the first cup, the last cup.</p>
-        </div>
-        <div class="card">
-          <h3>Boundary tactics</h3>
-          <p class="cite">Kreiner et al., 2009</p>
-          <p style="margin-top:10px">Makes me notice the different ways coffee might draw a line:</p>
-          <div class="tactics">
-            <span class="tag">Where: café vs. dorm</span>
-            <span class="tag">When: first cup</span>
-            <span class="tag">How: the ritual</span>
-            <span class="tag">"Let's grab coffee"</span>
-          </div>
-        </div>
-      </div>
+  <p class="eyebrow"><b>05</b> / My lens</p>
+  <h2>Sensitising concepts</h2>
+  <div class="grid3">
+    <div class="card">
+      <h3>Boundary work</h3>
+      <p class="cite">Nippert-Eng, 1996</p>
+      <p class="mt">How people draw and redraw the line.</p>
     </div>
+    <div class="card">
+      <h3>Micro role transitions</h3>
+      <p class="cite">Ashforth et al., 2000</p>
+      <p class="mt">The moment of crossing: the first cup, the last cup.</p>
+    </div>
+    <div class="card">
+      <h3>Boundary tactics</h3>
+      <p class="cite">Kreiner et al., 2009</p>
+      <p class="mt">The ways people draw the line: where, when, how, and what they say.</p>
+      <div class="tactics"><span class="tag">Where</span><span class="tag">When</span><span class="tag">How</span><span class="tag">“Let's grab coffee”</span></div>
+    </div>
+  </div>
+  <p class="note">They show me where to look.</p>
+</section>
+<section class="slide " data-title="Expectations" aria-label="Expectations">
 
-    <div class="sub">
-      <h3 class="small" style="margin-bottom:16px">Expectations (what I may find, not hypotheses to test)</h3>
+  <p class="eyebrow"><b>05</b> / What I expect, and could be wrong</p>
+  <h2>Expectations</h2>
+  <ol class="exp">
+    <li><span>1</span>Coffee may carry several tactics at once.</li>
+    <li><span>2</span>It may mark, cross, or blur, or do more than one.</li>
+    <li><span>3</span>Coffee may start studying, but something else may end it.</li>
+    <li><span>4</span>Some just drink it for pleasure, with no boundary.</li>
+  </ol>
+</section>
+<section class="slide " data-title="Positionality" aria-label="Positionality">
+
+  <p class="eyebrow"><b>05</b> / Positionality</p>
+  <h2>I'm a partial insider</h2>
+  <div class="grid2 pos">
+    <div class="card">
+      <h3>What it gives me</h3>
       <ul class="dots">
-        <li>Different boundary tactics may be tied to coffee, even several at once, because they complement each other.</li>
-        <li>Students may use coffee to mark the boundary, to cross it, or to blur it by mixing studying and living, or in more than one of these ways.</li>
-        <li>Coffee may be the ritual for entering study mode but not for leaving it; the exit may be something else.</li>
-        <li>Students may drink coffee just for pleasure, with no boundary involved.</li>
+        <li>I know NU's places.</li>
+        <li>I study at NU but live in the city, so I notice what residents take for granted.</li>
+        <li>As a coffee lover, I notice how others see it.</li>
       </ul>
     </div>
-
-    <div class="sub pos">
-      <h3 class="small" style="margin-bottom:16px">Positionality: an NU student studying NU students</h3>
-      <div class="grid2">
-        <div class="card">
-          <h3>What it gives me</h3>
-          <ul class="dots">
-            <li>I know which places matter at NU.</li>
-            <li>I can see whether living and studying really overlap at NU, or whether students keep them clearly apart.</li>
-            <li>As a coffee enjoyer, I can notice if NU students see coffee's importance differently.</li>
-            <li>I study at NU but live in the city, so I don't live the overlap myself. As a partial insider, I can notice routines that on-campus students take for granted.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>What it may miss</h3>
-          <ul class="dots">
-            <li>I don't live on campus, so I haven't felt what it's like to study and live in the same building. I may misunderstand students' experience.</li>
-            <li>As a coffee enjoyer, I may overrate coffee and overlook students for whom it means little.</li>
-            <li>As a fellow student, participants may tell me what they think I want to hear.</li>
-            <li>NU may be less integrated than I expect.</li>
-          </ul>
-        </div>
-      </div>
+    <div class="card">
+      <h3>What it may miss</h3>
+      <ul class="dots">
+        <li>I haven't lived the overlap myself.</li>
+        <li>I may overrate coffee.</li>
+        <li>Peers may tell me what I want to hear.</li>
+        <li>NU may be less integrated than I think.</li>
+      </ul>
     </div>
   </div>
 </section>
+<section class="slide " data-title="AI transparency" aria-label="AI transparency">
 
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
+  <p class="eyebrow"><b>06</b> / Working with AI</p>
+  <h2>How AI helped</h2>
+  <ul class="plus">
+    <li><span>+</span>The question, the stance, all seven sources, the literature review, expectations and positionality are mine.</li>
+    <li><span>+</span>Claude helped structure the literature review and draft the contribution.</li>
+    <li><span>+</span>Claude coded this page and shortened my notes.</li>
+    <li><span>·</span>I read every source myself and checked every part.</li>
+  </ul>
+</section>
+<section class="slide " data-title="Reflection" aria-label="Reflection">
 
-<section class="band" id="ai">
-  <div class="wrap">
-    <p class="eyebrow"><b>06</b> / AI transparency statement</p>
-    <h2>How I worked with AI</h2>
-    <p class="ai">I worked with Claude (Anthropic) in my PLS210 project. The research question, the interpretivist stance, all six sources, the literature review, the expectations and the positionality are my own work. Claude helped me structure the argument of the literature review, drafted the contribution section, wrote the code for this page and condensed my notes into its short text. I reviewed every section and can explain each concept and source.</p>
+  <p class="eyebrow"><b>07</b> / Not graded</p>
+  <h2>What I understand now,<br>and what I still don't</h2>
+  <ul class="plus">
+    <li><span class="ok">✓</span>Marking a boundary is not the same as crossing it.</li>
+    <li><span class="ok">✓</span>Coffee might blur the line, not mark it.</li>
+    <li><span>?</span>How to ask without leading students.</li>
+    <li><span>?</span>How to bring in the Kazakh context with real sources.</li>
+  </ul>
+</section>
+<section class="slide " data-title="References" aria-label="References">
+
+  <p class="eyebrow">References</p>
+  <ul class="refs">
+    <li>Ashforth, B. E., Kreiner, G. E., &amp; Fugate, M. (2000). All in a day's work: Boundaries and micro role transitions. <em>Academy of Management Review, 25</em>(3), 472–491. <a href="https://doi.org/10.2307/259305">https://doi.org/10.2307/259305</a></li>
+    <li>Franke, A. G., Lieb, K., &amp; Hildt, E. (2012). What users think about the differences between caffeine and illicit/prescription stimulants for cognitive enhancement. <em>PLoS ONE, 7</em>(6), e40047. <a href="https://doi.org/10.1371/journal.pone.0040047">https://doi.org/10.1371/journal.pone.0040047</a></li>
+    <li>Kreiner, G. E., Hollensbe, E. C., &amp; Sheep, M. L. (2009). Balancing borders and bridges: Negotiating the work-home interface via boundary work tactics. <em>Academy of Management Journal, 52</em>(4), 704–730. <a href="https://doi.org/10.5465/AMJ.2009.43669916">https://doi.org/10.5465/AMJ.2009.43669916</a></li>
+    <li>Mahoney, C. R., Giles, G. E., Marriott, B. P., Judelson, D. A., Glickman, E. L., Geiselman, P. J., &amp; Lieberman, H. R. (2019). Intake of caffeine from all sources and reasons for use by college students. <em>Clinical Nutrition, 38</em>(2), 668–675. <a href="https://doi.org/10.1016/j.clnu.2018.04.004">https://doi.org/10.1016/j.clnu.2018.04.004</a></li>
+    <li>Nippert-Eng, C. E. (1996). <em>Home and work: Negotiating boundaries through everyday life</em>. University of Chicago Press.</li>
+    <li>Riera-Sampol, A., Rodas, L., Martínez, S., Moir, H. J., &amp; Tauler, P. (2022). Caffeine intake among undergraduate students: Sex differences, sources, motivations, and associations with smoking status and self-reported sleep quality. <em>Nutrients, 14</em>(8), 1661. <a href="https://doi.org/10.3390/nu14081661">https://doi.org/10.3390/nu14081661</a></li>
+    <li>Schwartz-Shea, P., &amp; Yanow, D. (2012). Ways of knowing. In <em>Interpretive research design: Concepts and processes</em> (pp. 24–44). Routledge.</li>
+  </ul>
+</section>
+<section class="slide " data-title="Thank you" aria-label="Thank you">
+
+  <div class="end-slide">
+    <div class="beans" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
+    <h1>Thank you</h1>
+    <p class="big">Questions welcome.</p>
+    <p class="eyebrow">PLS 210 <b>/</b> Fall 2026 <b>/</b> Shifu (pseudonym)</p>
   </div>
 </section>
-
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
-
-<section class="band reflect" id="reflection">
-  <div class="wrap">
-    <p class="eyebrow"><b>07</b> / Ungraded</p>
-    <h2>What AI helped me understand, and what I still don't</h2>
-    <div class="grid2">
-      <div class="card">
-        <h3>Helped me understand</h3>
-        <ul class="dots">
-          <li>Marking a boundary is not the same as crossing it.</li>
-          <li>Students may want integration, not segmentation, so coffee might blur the boundary instead of marking it.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Still unclear</h3>
-        <ul class="dots">
-          <li>How to ask neutral questions that leave room for both marking and blending.</li>
-          <li>How to bring the Kazakh cultural context in with solid sources.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
-
-<section class="band" id="references">
-  <div class="wrap">
-    <p class="eyebrow">References</p>
-    <ul class="refs">
-      <li>Ashforth, B. E., Kreiner, G. E., &amp; Fugate, M. (2000). All in a day's work: Boundaries and micro role transitions. <em>Academy of Management Review, 25</em>(3), 472–491. <a href="https://doi.org/10.2307/259305">https://doi.org/10.2307/259305</a></li>
-      <li>Franke, A. G., Lieb, K., &amp; Hildt, E. (2012). What users think about the differences between caffeine and illicit/prescription stimulants for cognitive enhancement. <em>PLoS ONE, 7</em>(6), e40047. <a href="https://doi.org/10.1371/journal.pone.0040047">https://doi.org/10.1371/journal.pone.0040047</a></li>
-      <li>Kreiner, G. E., Hollensbe, E. C., &amp; Sheep, M. L. (2009). Balancing borders and bridges: Negotiating the work-home interface via boundary work tactics. <em>Academy of Management Journal, 52</em>(4), 704–730. <a href="https://doi.org/10.5465/AMJ.2009.43669916">https://doi.org/10.5465/AMJ.2009.43669916</a></li>
-      <li>Mahoney, C. R., Giles, G. E., Marriott, B. P., Judelson, D. A., Glickman, E. L., Geiselman, P. J., &amp; Lieberman, H. R. (2019). Intake of caffeine from all sources and reasons for use by college students. <em>Clinical Nutrition, 38</em>(2), 668–675. <a href="https://doi.org/10.1016/j.clnu.2018.04.004">https://doi.org/10.1016/j.clnu.2018.04.004</a></li>
-      <li>Nippert-Eng, C. E. (1996). <em>Home and work: Negotiating boundaries through everyday life</em>. University of Chicago Press.</li>
-      <li>Riera-Sampol, A., Rodas, L., Martínez, S., Moir, H. J., &amp; Tauler, P. (2022). Caffeine intake among undergraduate students: Sex differences, sources, motivations, and associations with smoking status and self-reported sleep quality. <em>Nutrients, 14</em>(8), 1661. <a href="https://doi.org/10.3390/nu14081661">https://doi.org/10.3390/nu14081661</a></li>
-    </ul>
-  </div>
-</section>
-
 </main>
 
-<div class="divider" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></div>
-<footer>
-  <div class="wrap">
-    <span>PLS 210 Political Science Research Methods, Nazarbayev University, Fall 2026</span>
-    <span class="beans" aria-hidden="true"><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg><svg><use href="#bean"/></svg></span>
-    <span>Research Design Part 1</span>
-  </div>
-</footer>
-
-<div class="counter" aria-hidden="true"><kbd id="pos">00</kbd> / 07 &nbsp; use ← → to move</div>
+<nav class="controls" aria-label="Slide controls">
+  <button id="prev" aria-label="Previous slide">&#8249;</button>
+  <span class="count" aria-live="polite"><b id="cur">01</b> / 14</span>
+  <button id="next" aria-label="Next slide">&#8250;</button>
+</nav>
 
 <script>
 (function(){
-  const ids=["top","question","position","contribution","literature","framework","ai","reflection","references"];
-  const secs=ids.map(id=>document.getElementById(id));
-  const pills=[...document.querySelectorAll(".links .pill")];
-  const pos=document.getElementById("pos");
-  let current=0;
+  var stage=document.getElementById("stage");
+  var slides=[].slice.call(document.querySelectorAll(".slide"));
+  var cur=document.getElementById("cur"), bar=document.getElementById("progress");
+  var i=0, W=1280, H=720;
+  var pills=[].slice.call(document.querySelectorAll(".pill"));
+  pills.forEach(function(b){b.onclick=function(){show(+b.dataset.go-1);b.blur();};});
 
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        current=secs.indexOf(e.target);
-        pos.textContent=String(Math.min(current,7)).padStart(2,"0");
-        pills.forEach(p=>p.classList.toggle("on",p.getAttribute("href")==="#"+e.target.id));
-      }
-    });
-  },{rootMargin:"-45% 0px -50% 0px"});
-  secs.forEach(s=>obs.observe(s));
-
-  // Presenter keys: right/left arrows jump between sections
-  document.addEventListener("keydown",e=>{
+  function fit(){
+    var s=Math.min(window.innerWidth/W,window.innerHeight/H);
+    stage.style.transform="translate(-50%,-50%) scale("+s+")";
+  }
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(el,k){el.classList.toggle("active",k===i);el.classList.toggle("past",k<i);el.setAttribute("aria-hidden",k!==i);});
+    cur.textContent=String(i+1).padStart(2,"0");
+    bar.style.width=((i+1)/slides.length*100)+"%";
+    if(history.replaceState) history.replaceState(null,"","#"+(i+1));
+    pills.forEach(function(b){var a=+b.dataset.go, z=+(b.dataset.to||b.dataset.go);b.classList.toggle("on",i+1>=a&&i+1<=z);});
+  }
+  document.addEventListener("keydown",function(e){
     if(e.altKey||e.ctrlKey||e.metaKey) return;
-    if(e.key==="ArrowRight"||e.key==="PageDown"){
-      e.preventDefault(); secs[Math.min(current+1,secs.length-1)].scrollIntoView();
-    } else if(e.key==="ArrowLeft"||e.key==="PageUp"){
-      e.preventDefault(); secs[Math.max(current-1,0)].scrollIntoView();
-    }
+    if(["ArrowRight","ArrowDown","PageDown"," ","Enter"].indexOf(e.key)>-1){e.preventDefault();show(i+1);}
+    else if(["ArrowLeft","ArrowUp","PageUp","Backspace"].indexOf(e.key)>-1){e.preventDefault();show(i-1);}
+    else if(e.key==="Home"){show(0);} else if(e.key==="End"){show(slides.length-1);}
   });
+  document.getElementById("prev").onclick=function(){show(i-1);};
+  document.getElementById("next").onclick=function(){show(i+1);};
+  // touch swipe (phones, tablets, touchscreens)
+  var x0=null,y0=null;
+  document.addEventListener("touchstart",function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+  document.addEventListener("touchend",function(e){
+    if(x0===null)return;
+    var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))show(i+(dx<0?1:-1));
+    x0=null;
+  });
+  // mouse drag swipe
+  var mx=null;
+  document.addEventListener("mousedown",function(e){if(e.button===0&&!e.target.closest("a,button"))mx=e.clientX;});
+  document.addEventListener("mouseup",function(e){if(mx===null)return;var dx=e.clientX-mx;if(Math.abs(dx)>60)show(i+(dx<0?1:-1));mx=null;});
+  // trackpad two-finger swipe and mouse wheel
+  var acc=0,locked=false,timer=null;
+  window.addEventListener("wheel",function(e){
+    e.preventDefault();
+    if(locked)return;
+    var d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
+    acc+=d; clearTimeout(timer); timer=setTimeout(function(){acc=0;},150);
+    if(Math.abs(acc)>50){
+      show(i+(acc>0?1:-1)); acc=0; locked=true;
+      setTimeout(function(){locked=false;},800);
+    }
+  },{passive:false});
+  window.addEventListener("resize",fit);
+  fit();
+  var h=parseInt(location.hash.slice(1),10);
+  show(h>0?h-1:0);
 })();
 </script>
 </body>
